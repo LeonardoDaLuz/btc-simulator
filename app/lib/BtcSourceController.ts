@@ -19,6 +19,8 @@ export class BtcSourceController {
   public viewEndData: string = "0";
   public dolarBalance: number = 10000;
   public btcBalance: number = 0;
+  public btcPriceOnLastSell = 0;
+  public btcPriceOnLastBuy = 999999;
   public log: string = "";
   autoNextTimeoutId: NodeJS.Timeout | null = null;
 
@@ -32,6 +34,7 @@ export class BtcSourceController {
     const btcAmount = this.dolarBalance / todayPrice.price!;
     this.dolarBalance = 0;
     this.btcBalance += btcAmount;
+    this.btcPriceOnLastBuy = todayPrice.price!;
     this.log +=
       "\n BTC purchased. BTC balance: " +
       this.btcBalance.toLocaleString("pt-BR", {
@@ -61,6 +64,7 @@ export class BtcSourceController {
     const dolarAmount = this.btcBalance * todayPrice.price!;
     this.btcBalance = 0;
     this.dolarBalance += dolarAmount;
+    this.btcPriceOnLastSell = todayPrice.price!;
     this.log +=
       "\n BTC selled. Dolar balance: " +
       this.btcBalance.toLocaleString("pt-BR", {

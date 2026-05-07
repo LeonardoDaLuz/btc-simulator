@@ -46,7 +46,7 @@ const PRESETS = [
 export function BitcoinChartLoadWrapper() {
   const controll = useObject(BtcSourceController);
   useEffect(() => {
-    fetch("/Bitcoin-price-USD.csv")
+    fetch("./Bitcoin-price-USD.csv")
       .then((res) => res.text())
       .then((csv) => {
         const result = Papa.parse<{ Date: string; Price: string }>(csv, {
@@ -326,6 +326,7 @@ export default function BitcoinChart({
             <input
               type="date"
               value={controller.cursorDate}
+                  className="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-sm text-gray-200 focus:outline-none focus:border-orange-500"
               onChange={(e) => {
                 controller.SetDay(e.target.value);
                 forceUpdate();
